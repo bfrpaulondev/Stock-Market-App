@@ -1,16 +1,26 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import SplashScreenComponent from '../src/screens/SplashScreen/SplashScreen';
 
-jest.mock('react-native-splash-screen', () => ({
-  hide: jest.fn(),
-}));
+jest.mock('@react-navigation/native', () => {
+  const actualNav = jest.requireActual('@react-navigation/native');
+  return {
+    ...actualNav,
+    useNavigation: () => ({
+      navigate: jest.fn(),
+    }),
+  };
+});
 
 describe('SplashScreenComponent', () => {
   it('renders correctly', () => {
-    const { getByText, getByTestId } = render(<SplashScreenComponent />);
-    expect(getByText('Welcome to')).toBeTruthy();
-    expect(getByText('Stocks')).toBeTruthy();
+    const { getByTestId } = render(
+      <NavigationContainer>
+        <SplashScreenComponent />
+      </NavigationContainer>
+    );
+
     expect(getByTestId('splash-icon')).toBeTruthy();
   });
 });

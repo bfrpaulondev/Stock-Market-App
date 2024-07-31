@@ -14,7 +14,7 @@ const SplashScreenComponent: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/splash-icon.png')} style={styles.icon} />
+      <Image source={require('../../assets/splash-icon.png')} style={styles.icon}  testID="splash-icon"  />
       <Text style={styles.text}>Welcome to</Text>
       <Text style={styles.title}>Stocks</Text>
     </View>
